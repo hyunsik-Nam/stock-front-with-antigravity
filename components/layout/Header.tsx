@@ -21,14 +21,18 @@ const Header = () => {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
-          <Link href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Features
           </Link>
-          <Link href="#performance" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/#performance" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Performance
           </Link>
-          <Link href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Pricing
+          </Link>
+          <Link href="/chat" className="text-sm text-primary font-medium hover:text-primary/80 transition-colors flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            AI Chat
           </Link>
         </nav>
 

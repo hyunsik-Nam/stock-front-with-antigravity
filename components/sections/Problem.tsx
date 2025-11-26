@@ -5,7 +5,7 @@ import { Activity, XCircle, BrainCircuit } from "lucide-react";
 
 const Problem = () => {
   return (
-    <section className="py-20 bg-background relative overflow-hidden">
+    <section id="features" className="py-20 bg-background relative overflow-hidden">
       {/* Background Pulse Effect */}
       <div className="absolute inset-0 bg-red-500/5 animate-pulse pointer-events-none" />
 
