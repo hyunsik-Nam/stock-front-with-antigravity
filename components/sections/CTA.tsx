@@ -21,7 +21,7 @@ const CTA = () => {
             <span className="text-primary">시스템화하세요.</span>
           </h2>
           <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
-            더 이상 감정에 휘둘리지 마세요. QuantPulse와 함께 데이터 기반의 투자를 시작하세요.
+            더 이상 감정에 휘둘리지 마세요. Woookiki와 함께 데이터 기반의 투자를 시작하세요.
           </p>
           
           <Button variant="neon" size="lg" className="text-lg px-8 py-6 h-auto">

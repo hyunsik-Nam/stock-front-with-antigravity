@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "QuantPulse - Invisible Intelligence",
+  title: "Woookiki - Invisible Intelligence",
   description: "Automated Algorithmic Trading Platform",
 };
 

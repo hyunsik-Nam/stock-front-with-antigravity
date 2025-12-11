@@ -26,7 +26,7 @@ const ChatInterface = () => {
     {
       id: "1",
       role: "assistant",
-      content: "안녕하세요. QuantPulse AI입니다. 무엇을 도와드릴까요?",
+      content: "안녕하세요. Woookiki AI입니다. 무엇을 도와드릴까요?",
       timestamp: new Date(),
     },
   ]);

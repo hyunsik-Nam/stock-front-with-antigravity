@@ -20,7 +20,7 @@ const Solution = () => {
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
               감정을 배제한 철저한 데이터 분석과 기계적인 실행.
-              QuantPulse는 당신이 잠든 사이에도 최적의 타이밍을 포착합니다.
+              Woookiki는 당신이 잠든 사이에도 최적의 타이밍을 포착합니다.
             </p>
 
             <div className="space-y-6">

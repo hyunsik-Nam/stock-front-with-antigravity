@@ -10,7 +10,7 @@ const Footer = () => {
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-black font-bold">
                 Q
               </div>
-              QuantPulse
+              Woookiki
             </Link>
             <p className="text-muted-foreground max-w-sm">
               Invisible Intelligence. <br />
@@ -40,7 +40,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-white/10 pt-8 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} QuantPulse. All rights reserved.
+          &copy; {new Date().getFullYear()} Woookiki. All rights reserved.
         </div>
       </div>
     </footer>
