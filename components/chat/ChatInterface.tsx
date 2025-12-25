@@ -13,13 +13,7 @@ type Message = {
   timestamp: Date;
 };
 
-const MOCK_RESPONSES = [
-  "현재 시장 상황을 분석 중입니다... 변동성이 확대되고 있으니 주의가 필요합니다.",
-  "AAPL의 RSI 지표가 30 이하로 떨어졌습니다. 과매도 구간으로 판단됩니다.",
-  "알고리즘이 새로운 매수 기회를 포착했습니다. 상세 리포트를 생성할까요?",
-  "지난 24시간 동안 포트폴리오 수익률은 +1.2% 입니다.",
-  "리스크 관리 프로토콜에 따라 일부 포지션을 축소하는 것을 권장합니다.",
-];
+
 
 const ChatInterface = () => {
   const [messages, setMessages] = useState<Message[]>([
@@ -54,22 +48,85 @@ const ChatInterface = () => {
     };
 
     setMessages((prev) => [...prev, newUserMessage]);
+    const currentInput = inputValue;
     setInputValue("");
     setIsTyping(true);
 
-    // Mock AI Response
-    setTimeout(() => {
-      const randomResponse =
-        MOCK_RESPONSES[Math.floor(Math.random() * MOCK_RESPONSES.length)];
-      const newAiMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "assistant",
-        content: randomResponse,
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, newAiMessage]);
+    try {
+      const response = await fetch("http://localhost:8000/api/v1/chat/stream", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: currentInput }),
+      });
+
+      if (!response.body) return;
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let assistantMessageId = (Date.now() + 1).toString();
+      let isFirstChunk = true;
+      let buffer = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        
+        // Process all complete lines
+        buffer = lines.pop() || ""; // Keep the last incomplete line in buffer
+
+        for (const line of lines) {
+          if (line.trim() === "") continue;
+          
+          if (line.startsWith("data: ")) {
+            const data = line.slice(6);
+            if (data === "[DONE]") continue;
+
+            try {
+              const parsed = JSON.parse(data);
+              const { content, node_name } = parsed;
+
+              if (content !== undefined) {
+                if (isFirstChunk) {
+                  setIsTyping(false);
+                  const newAiMessage: Message = {
+                    id: assistantMessageId,
+                    role: "assistant",
+                    content: content,
+                    timestamp: new Date(),
+                  };
+                  setMessages((prev) => [...prev, newAiMessage]);
+                  isFirstChunk = false;
+                } else {
+                  setMessages((prev) =>
+                    prev.map((msg) =>
+                      msg.id === assistantMessageId
+                        ? {
+                            ...msg,
+                            content:
+                              node_name === "chat" || node_name === "end"
+                                ? msg.content + content
+                                : content,
+                          }
+                        : msg
+                    )
+                  );
+                }
+              }
+            } catch (e) {
+              console.error("Error parsing SSE data:", e);
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Chat Error:", error);
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   return (
