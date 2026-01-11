@@ -32,7 +32,7 @@ const Header = () => {
           </Link>
           <Link href="/chat" className="text-sm text-primary font-medium hover:text-primary/80 transition-colors flex items-center gap-1">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            AI Chat
+            Chat
           </Link>
         </nav>
 
